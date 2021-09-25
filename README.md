@@ -1,3 +1,14 @@
+# WD Word Game
+
+## Setup project
+
+## Security Vulnerabilities
+- People can join any game, no restriction
+- api keys
+- test mode
+- no limit to input
+___
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
