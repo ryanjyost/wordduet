@@ -29,7 +29,7 @@ const initGame = async (firstPlayerName) => {
   const playerKey = playerRef.key;
   const gameRef = await push(ref(db, "games/"), {
     status: "ready",
-    timeRemaining: 10,
+    timeRemaining: 60,
     creator: playerKey,
     winner: null,
     characters: generateChars(),
@@ -44,21 +44,19 @@ const initGame = async (firstPlayerName) => {
   };
 };
 
-const startGame =  (gameKey) => {
+const startGame = (gameKey) => {
   const gameRef = child(ref(db), `games/${gameKey}`);
-  console.log(gameKey, "START", gameRef);
-  update(gameRef, { status: "active" })
-    .then((data) => console.log({ data }))
-    .catch((err) => console.error(err));
+
+  update(gameRef, { status: "active" });
 };
 
-const updateTimeRemaining = async (gameKey, timeRemaining) => {
-  const gameRef = child(ref(db), `games/${gameKey}`);
-  console.log("UPDATE", timeRemaining);
-  update(gameRef, { timeRemaining })
-    .then((data) => console.log("data"))
-    .catch((err) => console.error(err));
-};
+// const updateTimeRemaining = async (gameKey, timeRemaining) => {
+//   const gameRef = child(ref(db), `games/${gameKey}`);
+//   console.log("UPDATE", timeRemaining);
+//   update(gameRef, { timeRemaining })
+//     .then((data) => console.log("data"))
+//     .catch((err) => console.error(err));
+// };
 
 const addPlayer = async (gameKey, playerName) => {
   const playerRef = await push(ref(db, "players/"), { name: playerName });
@@ -68,6 +66,11 @@ const addPlayer = async (gameKey, playerName) => {
   }
 
   return playerKey;
+};
+
+const addWord = async (gameKey, playerKey, word) => {
+  const wordRef = child(ref(db), `words/${gameKey}/${word}`);
+  await set(wordRef, playerKey);
 };
 
 // const playersValue = async (gameKey) => {
@@ -84,6 +87,7 @@ export const DBService = {
   initGame,
   addPlayer,
   startGame,
+  addWord,
 };
 
 export default db;
@@ -98,7 +102,7 @@ function copyAndRemoveItemFromArray(array, itemToRemove) {
   if (index > -1) {
     copy.splice(index, 1);
   }
-  console.log({ copy });
+
   return copy;
 }
 
@@ -162,5 +166,5 @@ function generateChars() {
     lettersRemaining = copyAndRemoveItemFromArray(lettersRemaining, letter);
   }
 
-  return finalChars.join("");
+  return finalChars.sort((a, b) => (a > b ? 1 : -1)).join("");
 }
