@@ -24,7 +24,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [gameKey, setGameKey] = useState(null);
   const [game, setGame] = useState(null);
-  const [playerKey, setPlayerKey] = useLocalStorage("player", null);
+  const [playerKey, setPlayerKey] = useState(null);
   const [players, setPlayers] = useState({});
   const [playerNameInput, setPlayerNameInput] = useState("");
   const [inputValue, setInputValue] = useState("");
