@@ -1,7 +1,7 @@
 import React from "react";
 import App from "./App";
 
-export default function AppContainer({ children }) {
+export default function AppContainer() {
   return (
     <div
       className="App"

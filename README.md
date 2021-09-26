@@ -1,13 +1,31 @@
 # WD Word Game
 
+See who can come up with more words using just the letters provided!
+
+## Rules
+
+1. At least two players are required to kick off a game.
+2. Only the game creator can officially start the game.
+3. Each game has nine randomly generated letters, with a minimum of
+   two vowels and two consonants each time.
+4. Games last 1 minute / 60 seconds.
+5. You CANNOT submit words that...
+   1. ...have been used already, by you or another player.
+   2. ...use the same letter twice.
+   3. ...use characters that are not in the list of 9 random characters provided.
+6. Players get a point for each letter used in a submitted word. The more words provided and the longer those words
+   are, the greater the points.
+
 ## Setup project
 
 ## Security Vulnerabilities
+
 - People can join any game, no restriction
 - api keys
 - test mode
 - no limit to input
-___
+
+---
 
 # Getting Started with Create React App
 

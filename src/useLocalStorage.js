@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 // https://usehooks.com/useLocalStorage/
+// NOTE: THIS HELPED WITH HOT RELOADING
 export default function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input } from "antd";
 import useLocalStorage from "./useLocalStorage";
-import db, { DBService } from "./database.js";
+import db, { DBService } from "./firebase.js";
 import { onValue, get, child, ref, update } from "firebase/database";
 
 function App() {
