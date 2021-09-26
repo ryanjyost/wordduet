@@ -16,7 +16,6 @@ import {
   EnterOutlined,
 } from "@ant-design/icons";
 import { onValue, get, child, ref, update } from "firebase/database";
-import useLocalStorage from "./useLocalStorage";
 import db, { DBService } from "./firebase.js";
 import Loading from "./screens/Loading";
 
