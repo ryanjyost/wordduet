@@ -19,15 +19,6 @@ function App() {
   const gameIsComplete = game?.status === "complete";
   const timeRemaining = game?.timeRemaining;
   const characters = game?.characters;
-  // console.log({
-  //   //   gameKey,
-  //   //   playerKey,
-  //   //   players,
-  //   //   game,
-  //   //   gameIsReady,
-  //   //   gameIsActive,
-  //   //   timeRemaining,
-  //   // });
 
   function initNewGame() {
     const firstPlayerName = prompt("What is your name?");
@@ -36,7 +27,6 @@ function App() {
       setGameKey(gameKey);
       setPlayerKey(playerKey);
       window.history.pushState({}, "", `/games/${gameKey}`);
-      // window.location.href = ;
     });
   }
 
@@ -44,28 +34,24 @@ function App() {
     DBService.startGame(gameKey);
 
     let interval = null;
-    // interval = setInterval(() => {
-    //   const dbRef = ref(db);
-    //   const gameRef = child(ref(db), `games/${gameKey}`);
-    //
-    //   get(child(dbRef, `games/${gameKey}`)).then((gameSnapshot) => {
-    //     const game = gameSnapshot.val();
-    //
-    //     if (game.timeRemaining <= 0) {
-    //       update(gameRef, { status: "complete" });
-    //       return clearInterval(interval);
-    //     } else {
-    //       update(gameRef, { timeRemaining: game.timeRemaining - 1 });
-    //     }
-    //   });
-    //
-    //   //clearInterval
-    // }, 1000);
+    interval = setInterval(() => {
+      const dbRef = ref(db);
+      const gameRef = child(ref(db), `games/${gameKey}`);
+
+      get(child(dbRef, `games/${gameKey}`)).then((gameSnapshot) => {
+        const game = gameSnapshot.val();
+
+        if (game.timeRemaining <= 0) {
+          update(gameRef, { status: "complete" });
+          return clearInterval(interval);
+        } else {
+          update(gameRef, { timeRemaining: game.timeRemaining - 1 });
+        }
+      });
+    }, 1000);
   }
 
   function checkInputValue() {
-    console.log({ characters });
-    // no dupes
     if (usedWords && usedWords[inputValue]) {
       return "Word has already been used!";
     }
@@ -75,7 +61,6 @@ function App() {
 
     let error = null;
     inputtedChars.every((char) => {
-      console.log({ char, usedChars });
       if (!characters.includes(char)) {
         error = "Invalid character(s)";
         return false;
@@ -96,7 +81,7 @@ function App() {
 
   function handleSubmitWord() {
     const error = checkInputValue();
-    console.log({ error });
+
     if (error) {
       setInputError(error);
       return;
@@ -161,16 +146,6 @@ function App() {
       onValue(wordsRef, (snapshot) => {
         setUsedWords(snapshot.val());
       });
-
-      // const dbRef = ref(db);
-      // get(child(dbRef, `games/${gameKey}`)).then((snapshot) => {
-      //   const game = snapshot.val();
-      //
-      //   if (!game) {
-      //     window.location.href = "/";
-      //   }
-      //   setGame(snapshot.val());
-      // });
     }
   }, [gameKey]);
 
@@ -233,10 +208,7 @@ function App() {
         <h2>Time Remaining: {timeRemaining} seconds</h2>
         <Input
           value={inputValue}
-          onChange={(e) => {
-            // TODO handle validation
-            setInputValue(e.target.value.toLowerCase());
-          }}
+          onChange={(e) => setInputValue(e.target.value.toLowerCase())}
           onPressEnter={handleSubmitWord}
           maxLength={9}
           style={{ width: 250, marginBottom: 20 }}
@@ -282,7 +254,6 @@ function App() {
     );
   };
 
-  // TODO loaded state
   if (!game) return renderLandingScreen();
   if (gameIsReady) return renderPreGame();
   if (gameIsActive) return renderActiveGame();

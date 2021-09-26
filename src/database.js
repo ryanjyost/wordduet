@@ -1,14 +1,5 @@
 import * as firebase from "firebase/app";
-import {
-  getDatabase,
-  ref,
-  set,
-  push,
-  get,
-  child,
-  onValue,
-  update,
-} from "firebase/database";
+import { getDatabase, ref, set, push, child, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBboCcsaocq8BWlKbiEsXILOTrGOkFs3W0",
@@ -27,14 +18,15 @@ const db = getDatabase();
 const initGame = async (firstPlayerName) => {
   const playerRef = await push(ref(db, "players/"), { name: firstPlayerName });
   const playerKey = playerRef.key;
+
   const gameRef = await push(ref(db, "games/"), {
     status: "ready",
     timeRemaining: 60,
     creator: playerKey,
     characters: generateChars(),
   });
-  const gameKey = gameRef.key;
 
+  const gameKey = gameRef.key;
   await set(ref(db, `game_players/${gameKey}/${playerKey}`), firstPlayerName);
 
   return {
@@ -49,14 +41,6 @@ const startGame = (gameKey) => {
   update(gameRef, { status: "active" });
 };
 
-// const updateTimeRemaining = async (gameKey, timeRemaining) => {
-//   const gameRef = child(ref(db), `games/${gameKey}`);
-//   console.log("UPDATE", timeRemaining);
-//   update(gameRef, { timeRemaining })
-//     .then((data) => console.log("data"))
-//     .catch((err) => console.error(err));
-// };
-
 const addPlayer = async (gameKey, playerName) => {
   const playerRef = await push(ref(db, "players/"), { name: playerName });
   const playerKey = playerRef?.key;
@@ -68,20 +52,9 @@ const addPlayer = async (gameKey, playerName) => {
 };
 
 const addWord = async (gameKey, playerKey, word) => {
-  console.log("ADD WORD", gameKey, playerKey, word);
   const wordRef = child(ref(db), `words/${gameKey}/${word}`);
-  await set(wordRef, playerKey);
+  set(wordRef, playerKey);
 };
-
-// const playersValue = async (gameKey) => {
-//   console.log("player values");
-//
-//   let gamePlayers = null;
-//   // const snapshot =
-//   // console.log({ snapshot });
-//
-//   return gamePlayers;
-// };
 
 export const DBService = {
   initGame,
