@@ -7,7 +7,7 @@ import { onValue, get, child, ref, update } from "firebase/database";
 function App() {
   const [gameKey, setGameKey] = useState(null);
   const [game, setGame] = useState(null);
-  const [playerKey, setPlayerKey] = useState(null);
+  const [playerKey, setPlayerKey] = useLocalStorage("player", null);
   const [players, setPlayers] = useState({});
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState(null);
@@ -44,43 +44,64 @@ function App() {
     DBService.startGame(gameKey);
 
     let interval = null;
-    interval = setInterval(() => {
-      const dbRef = ref(db);
-      const gameRef = child(ref(db), `games/${gameKey}`);
-
-      get(child(dbRef, `games/${gameKey}`)).then((gameSnapshot) => {
-        const game = gameSnapshot.val();
-
-        if (game.timeRemaining <= 0) {
-          update(gameRef, { status: "complete" });
-          return clearInterval(interval);
-        } else {
-          update(gameRef, { timeRemaining: game.timeRemaining - 1 });
-        }
-      });
-
-      //clearInterval
-    }, 1000);
+    // interval = setInterval(() => {
+    //   const dbRef = ref(db);
+    //   const gameRef = child(ref(db), `games/${gameKey}`);
+    //
+    //   get(child(dbRef, `games/${gameKey}`)).then((gameSnapshot) => {
+    //     const game = gameSnapshot.val();
+    //
+    //     if (game.timeRemaining <= 0) {
+    //       update(gameRef, { status: "complete" });
+    //       return clearInterval(interval);
+    //     } else {
+    //       update(gameRef, { timeRemaining: game.timeRemaining - 1 });
+    //     }
+    //   });
+    //
+    //   //clearInterval
+    // }, 1000);
   }
 
   function checkInputValue() {
+    console.log({ characters });
     // no dupes
+    if (usedWords && usedWords[inputValue]) {
+      return "Word has already been used!";
+    }
 
     const usedChars = {};
     const inputtedChars = inputValue.split("");
 
-    // only letters allowed and not used twice
+    let error = null;
+    inputtedChars.every((char) => {
+      console.log({ char, usedChars });
+      if (!characters.includes(char)) {
+        error = "Invalid character(s)";
+        return false;
+      }
 
-    console.log({ inputtedChars });
+      if (usedChars[char]) {
+        error = "Characters can only be used once!";
+        return false;
+      }
+
+      usedChars[char] = true;
+
+      return true;
+    });
+
+    return error;
   }
 
   function handleSubmitWord() {
     const error = checkInputValue();
-    // clear input
-    // TODO handle validation
-    // Order of the
-    // letters doesn't matter, but each letter can be used at most once
-    // per word.
+    console.log({ error });
+    if (error) {
+      setInputError(error);
+      return;
+    }
+
     DBService.addWord(gameKey, playerKey, inputValue);
     setInputValue("");
     setInputError(null);
@@ -95,6 +116,14 @@ function App() {
     return results;
   }
 
+  function startOver() {
+    localStorage.removeItem("player");
+    window.history.pushState({}, "", `/`);
+    setGame(null);
+    setPlayerKey(null);
+    setPlayers(null);
+  }
+
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes("games")) {
@@ -103,7 +132,6 @@ function App() {
       gameKeyFromPath && setGameKey(gameKeyFromPath);
 
       // add a new player
-      console.log(gameKeyFromPath, playerKey, gameIsReady);
       if (gameKeyFromPath && !playerKey && gameIsReady) {
         const playerName = prompt("What is your name?");
 
@@ -146,6 +174,14 @@ function App() {
     }
   }, [gameKey]);
 
+  const renderStartOverButton = () => {
+    return (
+      <Button style={{ marginTop: 100 }} danger onClick={startOver}>
+        Reset
+      </Button>
+    );
+  };
+
   const renderLandingScreen = () => {
     return (
       <>
@@ -161,7 +197,9 @@ function App() {
   const renderPreGame = () => {
     return (
       <>
-        <h1>Invite others to play the game with the link below!</h1>
+        <h1 style={{ textAlign: "center" }}>
+          Invite others to play the game with the link below!
+        </h1>
         <Input
           style={{ width: 250, marginBottom: 30 }}
           value={window.location.href}
@@ -181,6 +219,8 @@ function App() {
             Play!
           </Button>
         )}
+
+        {renderStartOverButton()}
       </>
     );
   };
@@ -195,7 +235,7 @@ function App() {
           value={inputValue}
           onChange={(e) => {
             // TODO handle validation
-            setInputValue(e.target.value);
+            setInputValue(e.target.value.toLowerCase());
           }}
           onPressEnter={handleSubmitWord}
           maxLength={9}
@@ -216,6 +256,8 @@ function App() {
               </p>
             );
           })}
+
+        {renderStartOverButton()}
       </>
     );
   };
@@ -235,6 +277,7 @@ function App() {
               </p>
             );
           })}
+        {renderStartOverButton()}
       </>
     );
   };

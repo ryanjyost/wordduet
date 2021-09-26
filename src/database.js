@@ -31,7 +31,6 @@ const initGame = async (firstPlayerName) => {
     status: "ready",
     timeRemaining: 60,
     creator: playerKey,
-    winner: null,
     characters: generateChars(),
   });
   const gameKey = gameRef.key;
@@ -69,6 +68,7 @@ const addPlayer = async (gameKey, playerName) => {
 };
 
 const addWord = async (gameKey, playerKey, word) => {
+  console.log("ADD WORD", gameKey, playerKey, word);
   const wordRef = child(ref(db), `words/${gameKey}/${word}`);
   await set(wordRef, playerKey);
 };
