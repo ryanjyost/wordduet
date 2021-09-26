@@ -26,7 +26,7 @@ https://user-images.githubusercontent.com/20424498/134790275-2e4c8341-805a-4160-
 
 ## Setup this project locally
 
-1. For the project
+1. Fork the project
 2. `npm install`
 3. `npm start`
 
