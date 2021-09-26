@@ -1,8 +1,13 @@
-# WD Word Game
+# WordDuet
 
-See who can come up with more words using just the letters provided!
+**See who can come up with more words using just the letters provided!**
 
-## Coding Challenge
+Play it now at 
+[https://trusting-ride-a2dc4d.netlify.app/](https://trusting-ride-a2dc4d.netlify.app/)
+
+[See the game rules below](#rules)
+
+## Coding Challenge Details
 
 The basic MVP/proof of concept took approx. 5 hours in total coding time.
 
@@ -25,14 +30,15 @@ https://user-images.githubusercontent.com/20424498/134810227-d9e5fe31-571d-4dbd-
 - Use legit state management like Mobx, Redux, Context API, etc.
 - Refine edge cases (no issues with reloading, handle ties/tiebreaker, etc.)
 
-## Security Vulnerabilities
+### Security Vulnerabilities
 
-- People can join any game, no restriction
-- api keys
-- DDOS?
-- Firebase credentials are easy to access
-- test mode
-- no limit to input
+- Firebase real-time database is in test mode, anyone can write or read data.
+- Firebase credentials are easy to access in the public code/repo
+- Validation on inputted data missing to avoid saving nefarious stuff/XSS
+- Anyone can stumble upon the results of a completed game that they did not play
+- DOS/DDOS attack, use Captcha or something to start/join the game
+- 3rd party npm dependencies
+- Grabbing gameKey from the url and using without verifying it
 
 ## Rules
 
