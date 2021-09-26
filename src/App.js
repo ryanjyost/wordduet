@@ -18,7 +18,6 @@ import {
 } from "@ant-design/icons";
 import { onValue, get, child, ref, update } from "firebase/database";
 import db, { DBService } from "./firebase.js";
-import useLocalStorage from "./useLocalStorage";
 
 function App() {
   const [loading, setLoading] = useState(true);
