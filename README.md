@@ -2,6 +2,11 @@
 
 See who can come up with more words using just the letters provided!
 
+## Developer Notes
+
+The basic MVP/proof of concept took approx. 5 hours in total coding time. That version can be found on the
+ `mvp` branch. This was done ASAP, with little attention paid to code style, security, performance, etc.
+
 ## Rules
 
 1. At least two players are required to kick off a game.
