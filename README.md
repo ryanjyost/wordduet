@@ -10,10 +10,11 @@ That version can be found on the `mvp` branch. This was done ASAP, with little a
 
 https://user-images.githubusercontent.com/20424498/134790275-2e4c8341-805a-4160-84f4-57d43b6e13c7.mov
 
-After finishing the `mvp` version, I spent a few more hours improving the UX/UI and doing some code cleanup. That
-version is on the `main` branch and can be accessed on the web at INSERT NETLIFY HERE
+After finishing the `mvp` version, I spent a couple more hours of fingers on keys improving the UX/UI, doing some code cleanup and making the site live on the internet. 
 
-TODO INSERT VIDEO WITH 3 USERS
+That version is on the `main` branch and can be accessed on the web at [https://trusting-ride-a2dc4d.netlify.app/](https://trusting-ride-a2dc4d.netlify.app/)
+
+https://user-images.githubusercontent.com/20424498/134810227-d9e5fe31-571d-4dbd-996c-385cc8878529.mov
 
 ### Areas for improvement (non-security related)
 
