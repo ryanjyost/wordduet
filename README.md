@@ -29,6 +29,7 @@ https://user-images.githubusercontent.com/20424498/134810227-d9e5fe31-571d-4dbd-
 - Use legit routing system like React Router
 - Use legit state management like Mobx, Redux, Context API, etc.
 - Refine edge cases (no issues with reloading, handle ties/tiebreaker, etc.)
+- Don't use inline styles, modularize or use styling library
 
 ### Security Vulnerabilities
 
