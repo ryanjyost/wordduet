@@ -2,10 +2,36 @@
 
 See who can come up with more words using just the letters provided!
 
-## Developer Notes
+## Coding Challenge
 
-The basic MVP/proof of concept took approx. 5 hours in total coding time. That version can be found on the
- `mvp` branch. This was done ASAP, with little attention paid to code style, security, performance, etc.
+The basic MVP/proof of concept took approx. 5 hours in total coding time.
+
+That version can be found on the `mvp` branch. This was done ASAP, with little attention paid to code style, UX, performance, etc.
+
+https://user-images.githubusercontent.com/20424498/134790275-2e4c8341-805a-4160-84f4-57d43b6e13c7.mov
+
+After finishing the `mvp` version, I spent a few more hours improving the UX/UI and doing some code cleanup. That
+version is on the `main` branch and can be accessed on the web at INSERT NETLIFY HERE
+
+TODO INSERT VIDEO WITH 3 USERS
+
+### Areas for improvement (non-security related)
+
+- Componetize some, but not aggressively
+- Memoize computed variables in render functions
+- Isolate firebase interaction to inside the DBService layer / no firebase module imports outside of firebase.js
+- Use legit routing system like React Router
+- Use legit state management like Mobx, Redux, Context API, etc.
+- Refine edge cases (no issues with reloading, handle ties/tiebreaker, etc.)
+
+## Security Vulnerabilities
+
+- People can join any game, no restriction
+- api keys
+- DDOS?
+- Firebase credentials are easy to access
+- test mode
+- no limit to input
 
 ## Rules
 
@@ -23,16 +49,9 @@ The basic MVP/proof of concept took approx. 5 hours in total coding time. That v
 
 ## Setup this project locally
 
-1. For the project
+1. Fork the project
 2. `npm install`
 3. `npm start`
-
-## Security Vulnerabilities
-
-- People can join any game, no restriction
-- api keys
-- test mode
-- no limit to input
 
 ---
 
