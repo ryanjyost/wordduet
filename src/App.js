@@ -127,6 +127,7 @@ function App() {
     } else {
       localStorage.removeItem("player");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameIsReady]);
 
   useEffect(() => {
