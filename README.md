@@ -16,7 +16,11 @@ See who can come up with more words using just the letters provided!
 6. Players get a point for each letter used in a submitted word. The more words provided and the longer those words
    are, the greater the points.
 
-## Setup project
+## Setup this project locally
+
+1. For the project
+2. `npm install`
+3. `npm start`
 
 ## Security Vulnerabilities
 
