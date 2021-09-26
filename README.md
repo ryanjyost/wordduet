@@ -2,13 +2,28 @@
 
 See who can come up with more words using just the letters provided!
 
-## Developer Notes
+## Coding Challenge
 
 The basic MVP/proof of concept took approx. 5 hours in total coding time. That version can be found on the
- `mvp` branch. This was done ASAP, with little attention paid to code style, security, performance, etc.
+`mvp` branch. This was done ASAP, with little attention paid to code style, security, performance, etc.
 
 https://user-images.githubusercontent.com/20424498/134790275-2e4c8341-805a-4160-84f4-57d43b6e13c7.mov
 
+After finishing the `mvp` version, spent a few more hours improving the UX/UI and doing some code cleanup. That
+version is on the `main` branch and can be accessed on the web at INSERT NETLIFY HERE
+
+### Areas for improvement (non-security related)
+- More modularized code
+- Memoize more computed variables
+- 
+
+## Security Vulnerabilities
+
+- People can join any game, no restriction
+- api keys
+- Firebase credentials are easy to access
+- test mode
+- no limit to input
 
 ## Rules
 
@@ -29,13 +44,6 @@ https://user-images.githubusercontent.com/20424498/134790275-2e4c8341-805a-4160-
 1. Fork the project
 2. `npm install`
 3. `npm start`
-
-## Security Vulnerabilities
-
-- People can join any game, no restriction
-- api keys
-- test mode
-- no limit to input
 
 ---
 
